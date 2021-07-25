@@ -16,8 +16,10 @@ class Inventory:
         self.taken_item = None
         self.division = False
         self.inventory_cells = []
-        self.items = pygame.sprite.Group()
+        self.items_group = pygame.sprite.Group()
+        self.hot_bar_group = pygame.sprite.Group()
         self.inventory_canvas = pygame.Surface((WIDTH, HEIGHT))
+        self.hot_bar_canvas = pygame.Surface((WIDTH, HEIGHT))
 
     def draw_inventory(self, screen):  # отрисовываем инвентарь
 
@@ -27,10 +29,18 @@ class Inventory:
         self.create_inventory()  # отрисовываем сетку инвентаря
         if self.taken:
             self.taken_item.moving()
-        self.items.draw(self.inventory_canvas)  # отрисовываем предметы
+        self.items_group.draw(self.inventory_canvas)  # отрисовываем предметы
         self.draw_items_count()  # отрисовываем количество предметов
 
         screen.blit(self.inventory_canvas, (0, 0))
+
+    def hot_bar(self, screen):
+        self.hot_bar_canvas.fill((0, 0, 0))
+        self.hot_bar_canvas.set_colorkey((0, 0, 0))
+
+        self.create_hot_bar()
+
+        screen.blit(self.hot_bar_canvas, (0, 0))
 
     def draw_items_count(self):
         for y in range(len(self.inventory_cells)):
@@ -59,6 +69,16 @@ class Inventory:
                 cell_pos_x += self.side
             cell_pos_y += self.side
         pygame.draw.rect(self.inventory_canvas, (255, 0, 0), (self.X, self.Y, self.W, self.H), 5)
+
+    def create_hot_bar(self):
+        for x in range(self.cell_x):
+            pygame.draw.rect(self.hot_bar_canvas,
+                             (255, 255, 255),
+                             (self.X + self.side * x, self.Y, self.side, self.side), 1)
+        
+        for item in self.inventory_cells[0]:
+            if item:
+                self.hot_bar_group.add(item)
 
     def mouse_press_detect(self, mouse_key):  # механика перетаскивания вещей в инвентаре
         mouse_pos_x, mouse_pos_y = pygame.mouse.get_pos()
@@ -119,7 +139,7 @@ class Inventory:
                     else:
                         if selected_cell.count > 1:  # берём половину предметов
                             self.taken_item = items(get_key(selected_cell.id))
-                            self.items.add(self.taken_item)
+                            self.items_group.add(self.taken_item)
                             self.taken_item.mobility = True
                             self.taken_item.count = selected_cell.count // 2
                             self.inventory_cells[selected_cell_y][selected_cell_x].count -= self.taken_item.count
@@ -127,7 +147,7 @@ class Inventory:
                 else:
                     if self.taken:  # кладём 1 предмет в пустую ячейку
                         self.inventory_cells[selected_cell_y][selected_cell_x] = items(get_key(self.taken_item.id))
-                        self.items.add(self.inventory_cells[selected_cell_y][selected_cell_x])
+                        self.items_group.add(self.inventory_cells[selected_cell_y][selected_cell_x])
                         self.inventory_cells[selected_cell_y][selected_cell_x].set_pos(selected_cell_x,
                                                                                        selected_cell_y,
                                                                                        self.X, self.Y)
@@ -148,7 +168,7 @@ class Inventory:
                         break
                 else:
                     item.set_pos(x, y, self.X, self.Y)
-                    self.items.add(item)
+                    self.items_group.add(item)
                     self.inventory_cells[y][x] = item
                     break_flag = True
                     break
@@ -157,4 +177,4 @@ class Inventory:
 
     def inventory_clear(self):
         self.inventory_cells.clear()
-        self.items.empty()
+        self.items_group.empty()

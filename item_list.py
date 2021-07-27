@@ -7,7 +7,7 @@ def items(name):
 
 
 def get_key(value):
-    for k, v in items_id.items_group():
+    for k, v in items_id.items():
         if v == value:
             return k
 

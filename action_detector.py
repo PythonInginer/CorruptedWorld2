@@ -6,6 +6,7 @@ class Detection:
         self.chat_detect = False
         self.inventory_detect = False
         self.minimap_detect = True
+        self.hotBar_detect = True
 
     def detect_keys(self, key, chat, player, inventory):
         if key == pygame.K_RETURN:  # детектим откртие чата
@@ -16,12 +17,16 @@ class Detection:
 
         if key == pygame.K_ESCAPE:  # детектим открытие инвентаря
             self.inventory_detect = not self.inventory_detect
+            self.hotBar_detect = not self.hotBar_detect
 
     def detect_mouse_keys(self, mouse_key, inventory):
         if self.inventory_detect:
             inventory.mouse_press_detect(mouse_key)
 
     def always_update(self, screen, inventory, minimap, player):
+        if self.hotBar_detect:  # отрисовывает горячие слоты
+            inventory.draw_hotBar(screen)
+
         if self.inventory_detect:  # отрисовываем инвентарь, если была нажата клавиша ESC
             inventory.draw_inventory(screen)
 

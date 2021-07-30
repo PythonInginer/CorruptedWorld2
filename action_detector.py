@@ -22,6 +22,8 @@ class Detection:
     def detect_mouse_keys(self, mouse_key, inventory):
         if self.inventory_detect:
             inventory.mouse_press_detect(mouse_key)
+        if self.hotBar_detect:
+            inventory.item_action(mouse_key)
 
     def always_update(self, screen, inventory, minimap, player):
         if self.hotBar_detect:  # отрисовывает горячие слоты

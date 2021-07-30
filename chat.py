@@ -30,9 +30,11 @@ class Chat:
                 if text[0][1:] == 'tp':
                     commands.set_player_pos(player, int(text[1]), int(text[2]))
                 if text[0][1:] == 'give':
-                    commands.give_item(inventory, text[1], int(text[2]))
-                if text[0][1:] == 'inventory_clear':
-                    commands.inventory_clear(inventory)
+                    item_type, item_name = text[1].split(':')
+                    commands.give_item(inventory, item_type, item_name, int(text[2]))
+                if text[0][1:] == 'inventory':
+                    if text[1] == 'clear':
+                        commands.inventory_clear(inventory)
             else:
                 pass
 

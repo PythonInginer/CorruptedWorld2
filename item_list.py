@@ -1,9 +1,15 @@
-from item import Item
+from items import Item, MagicWand
 
 
-def items(name):
+def items_norm(name):
     if name in items_id:
-        return Item('data/textures/items/dirt.png', items_id[name])
+        return Item(f'data/textures/items/{name}.png', items_id[name])
+
+
+def items_weapon(name):
+    if name in items_id:
+        if name == 'magic_wand':
+            return MagicWand(f'data/textures/items/{name}.png', items_id[name])
 
 
 def get_key(value):
@@ -13,5 +19,5 @@ def get_key(value):
 
 
 items_id = {'dirt': 1,
-
+            'magic_wand': 2
             }

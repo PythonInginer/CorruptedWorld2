@@ -1,10 +1,10 @@
 import pygame
-from item_list import get_key, items
-from CONST import WIDTH, HEIGHT, STACK
+from item_list import get_key, items_norm
+from CONST import WIDTH, HEIGHT
 
 
 class Inventory:
-    def __init__(self):
+    def __init__(self, player_x, player_y):
         self.cell_x = 8  # количество клеток по X
         self.cell_y = 4  # количество клеток по Y
         self.side = 75  # сторона клетки
@@ -12,6 +12,9 @@ class Inventory:
         self.H = self.side * self.cell_y
         self.X = WIDTH - self.W - 20
         self.Y = 20
+        self.hotBarCell_pos = 0
+        self.player_x = player_x
+        self.player_y = player_y
         self.taken = False
         self.taken_item = None
         self.division = False
@@ -56,23 +59,26 @@ class Inventory:
         for y in range(len(self.inventory_cells)):
             for x in range(len(self.inventory_cells[y])):
                 if self.inventory_cells[y][x]:
-                    cell = self.inventory_cells[y][x]
-                    stack_style = pygame.font.Font(None, 30)
-                    text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
-                    self.inventory_canvas.blit(text, (cell.rect.x + 50, cell.rect.y + 40))
+                    if self.inventory_cells[y][x].item_type == 'item':
+                        cell = self.inventory_cells[y][x]
+                        stack_style = pygame.font.Font(None, 30)
+                        text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
+                        self.inventory_canvas.blit(text, (cell.rect.x + 40, cell.rect.y + 40))
         if self.taken_item:
-            cell = self.taken_item
-            stack_style = pygame.font.Font(None, 30)
-            text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
-            self.inventory_canvas.blit(text, (cell.rect.x + 50, cell.rect.y + 40))
+            if self.taken_item.item_type == 'item':
+                cell = self.taken_item
+                stack_style = pygame.font.Font(None, 30)
+                text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
+                self.inventory_canvas.blit(text, (cell.rect.x + 40, cell.rect.y + 40))
 
     def draw_hotBar(self, screen):
         self.hotBar_canvas.fill((0, 0, 0))
         self.hotBar_canvas.set_colorkey((0, 0, 0))
 
         self.create_hotBar()
-        self.draw_hotBar_items_count()
         self.hotBar_group.draw(self.hotBar_canvas)
+        self.draw_hotBar_items_count()
+        self.chosen_cell()
 
         screen.blit(self.hotBar_canvas, (0, 0))
 
@@ -90,10 +96,11 @@ class Inventory:
     def draw_hotBar_items_count(self):
         for x in range(len(self.inventory_cells[0])):
             if self.inventory_cells[0][x]:
-                cell = self.inventory_cells[0][x]
-                stack_style = pygame.font.Font(None, 30)
-                text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
-                self.hotBar_canvas.blit(text, (cell.rect.x + 50, cell.rect.y + 40))
+                if self.inventory_cells[0][x].item_type == 'item':
+                    cell = self.inventory_cells[0][x]
+                    stack_style = pygame.font.Font(None, 30)
+                    text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
+                    self.hotBar_canvas.blit(text, (cell.rect.x + 40, cell.rect.y + 40))
 
     def mouse_press_detect(self, mouse_key):  # механика перетаскивания вещей в инвентаре
         mouse_pos_x, mouse_pos_y = pygame.mouse.get_pos()
@@ -123,7 +130,8 @@ class Inventory:
                         else:  # добавляем предметы к предметам
                             taken_item_count = self.taken_item.count
                             item_count = selected_cell.count
-                            rest = STACK - item_count
+                            max_stack = selected_cell.max_count
+                            rest = max_stack - item_count
                             if rest != 0:
                                 if taken_item_count <= rest:
                                     self.inventory_cells[selected_cell_y][selected_cell_x].count += taken_item_count
@@ -131,7 +139,7 @@ class Inventory:
                                     self.taken_item = None
                                     self.taken = False
                                 else:
-                                    self.inventory_cells[selected_cell_y][selected_cell_x].count = STACK
+                                    self.inventory_cells[selected_cell_y][selected_cell_x].count = max_stack
                                     self.taken_item.count = item_count
 
                 else:
@@ -144,7 +152,7 @@ class Inventory:
             if mouse_key == 3:  # работа с ПКМ
                 if selected_cell:
                     if self.taken:  # добавляеи по 1 предмету из взятого стака к другому стаку
-                        if selected_cell.count < STACK:
+                        if selected_cell.count < selected_cell.max_count:
                             self.taken_item.count -= 1
                             self.inventory_cells[selected_cell_y][selected_cell_x].count += 1
                             if self.taken_item.count == 0:
@@ -153,7 +161,7 @@ class Inventory:
                                 self.taken = False
                     else:
                         if selected_cell.count > 1:  # берём половину предметов
-                            self.taken_item = items(get_key(selected_cell.id))
+                            self.taken_item = items_norm(get_key(selected_cell.id))
                             self.items_group.add(self.taken_item)
                             self.taken_item.mobility = True
                             self.taken_item.count = selected_cell.count // 2
@@ -161,7 +169,7 @@ class Inventory:
                             self.taken = True
                 else:
                     if self.taken:  # кладём 1 предмет в пустую ячейку
-                        self.inventory_cells[selected_cell_y][selected_cell_x] = items(get_key(self.taken_item.id))
+                        self.inventory_cells[selected_cell_y][selected_cell_x] = items_norm(get_key(self.taken_item.id))
                         self.items_group.add(self.inventory_cells[selected_cell_y][selected_cell_x])
                         self.inventory_cells[selected_cell_y][selected_cell_x].set_pos(selected_cell_x,
                                                                                        selected_cell_y,
@@ -172,12 +180,33 @@ class Inventory:
                             self.taken_item = None
                             self.taken = False
 
+    def item_action(self, mouse_key):  # вычисляем положение выбранной ячейки
+        if mouse_key == 5:
+            self.hotBarCell_pos -= 1
+        elif mouse_key == 4:
+            self.hotBarCell_pos += 1
+        if self.hotBarCell_pos < 0:
+            self.hotBarCell_pos = self.cell_x - 1
+        elif self.hotBarCell_pos > self.cell_x - 1:
+            self.hotBarCell_pos = 0
+        if mouse_key == 1:
+            item = self.inventory_cells[0][self.hotBarCell_pos]
+            if item:
+                if item.item_type == 'weapon':
+                    item.fire(self.player_x, self.player_y)
+
+    def chosen_cell(self):  # отрисовываем выбранную ячейку
+        pygame.draw.rect(self.hotBar_canvas,
+                         (0, 0, 255),
+                         (self.X + self.hotBarCell_pos * self.side, self.Y, self.side, self.side), 5)
+
     def append_item(self, item):  # механика добавления предмета в инвентарь
         break_flag = False
         for y in range(self.cell_y):
             for x in range(self.cell_x):
                 if self.inventory_cells[y][x]:
-                    if self.inventory_cells[y][x].id == item.id and self.inventory_cells[y][x].count < STACK:
+                    if (self.inventory_cells[y][x].id == item.id and
+                            self.inventory_cells[y][x].count < self.inventory_cells[y][x].max_count):
                         self.inventory_cells[y][x].count += 1
                         break_flag = True
                         break
@@ -191,5 +220,5 @@ class Inventory:
                 break
 
     def inventory_clear(self):
-        self.inventory_cells.clear()
+        self.inventory_cells = [[None for _ in range(self.cell_x)] for _ in range(self.cell_y)]
         self.items_group.empty()

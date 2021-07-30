@@ -1,5 +1,5 @@
 import pygame
-from CONST import WIDTH, HEIGHT, TILE_WH
+from CONST import WIDTH, HEIGHT, TILE_WH, TILE_SPRITES
 
 
 class Tile(pygame.sprite.Sprite):  # создание тайла
@@ -30,12 +30,11 @@ def load_level(filename):  # читаем уровень из файла
 def generate_level():  # выставляем тайлы на холст
     level_map, X, Y = load_level(lvl_name)
     world_map_conv = pygame.Surface((75 * X, 75 * Y))
-    tiles_sprites = pygame.sprite.Group()
     for y in range(len(level_map)):
         for x in range(len(level_map[y])):
-            tiles_sprites.add(Tile(75 * x, 75 * y, load_image(tile_images[level_map[y][x]][0])))
-    tiles_sprites.draw(world_map_conv)
-    return world_map_conv, tiles_sprites
+            TILE_SPRITES.add(Tile(75 * x, 75 * y, load_image(tile_images[level_map[y][x]][0])))
+    TILE_SPRITES.draw(world_map_conv)
+    return world_map_conv
 
 
 tile_images = {

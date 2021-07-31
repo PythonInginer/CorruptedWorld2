@@ -3,7 +3,7 @@ import pygame
 
 FPS = 60
 WIDTH, HEIGHT = 1024, 600
-TILES_COUNT_WH = int((len(open('data/map.txt', 'r', encoding='utf8').readline()) // 2))
+TILES_COUNT_WH = int((len(open('data/world_dir/map.txt', 'r', encoding='utf8').readline()) // 2))
 
 TILE_WH = 75
 STACK = 4

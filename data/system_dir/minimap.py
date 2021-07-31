@@ -1,4 +1,4 @@
-from CONST import WIDTH, HEIGHT, MAP_WH
+from data.system_dir.CONST import MAP_WH
 import pygame
 
 

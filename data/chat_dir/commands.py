@@ -1,4 +1,4 @@
-from item_list import items_norm, items_weapon
+from data.system_dir.item_list import items_norm, items_weapon
 
 
 def set_player_pos(player, x, y):

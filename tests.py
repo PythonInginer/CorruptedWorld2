@@ -57,7 +57,7 @@ while run:
         if e.type == MOUSEBUTTONDOWN:
             if e.button == 1:
                 orbs.append(Orb((px, py), (mx, my)))
-    # player movement
+    # player_dir movement
     key = pygame.key.get_pressed()
 
     if key[K_a]:

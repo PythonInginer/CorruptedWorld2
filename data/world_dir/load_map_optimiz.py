@@ -1,5 +1,5 @@
 import pygame
-from CONST import WIDTH, HEIGHT, TILE_WH, TILE_SPRITES
+from data.system_dir.CONST import TILE_WH, TILE_SPRITES
 
 
 class Tile(pygame.sprite.Sprite):  # создание тайла
@@ -11,11 +11,11 @@ class Tile(pygame.sprite.Sprite):  # создание тайла
         self.rect.y = pos_y
 
 
-lvl_name = 'data/map.txt'
+lvl_name = 'data/world_dir/map.txt'
 
 
 def load_image(name):  # рендерим изображение
-    image = pygame.image.load(f'data/textures/{name}').convert()
+    image = pygame.image.load(f'data/textures_dir/{name}').convert()
     image = image.convert_alpha()
     image = pygame.transform.scale(image, (TILE_WH, TILE_WH))
     return image

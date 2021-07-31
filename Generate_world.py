@@ -8,7 +8,7 @@
 #
 #
 # def load_texture(tx_name):
-#     image = pygame.image.load(f'data/textures/{tx_name}').convert()
+#     image = pygame.image.load(f'data/textures_dir/{tx_name}').convert()
 #     image = image.convert_alpha()
 #     image = pygame.transform.scale(image, (TILE_WH, TILE_WH))
 #     return image
@@ -42,7 +42,7 @@ world = np.vectorize(noise.pnoise2)(world_x / scale,
                                     base=seed)
 
 # here was the error: one needs to normalize the image first. Could be done without copying the array, though
-img = np.floor((world + .5) * 255).astype(np.uint8)  # <- Normalize world first
+img = np.floor((world + .5) * 255).astype(np.uint8)  # <- Normalize world_dir first
 img = Image.fromarray(img, mode='L')
 img.save('1.png')
 img.show()

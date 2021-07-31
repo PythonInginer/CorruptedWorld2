@@ -1,13 +1,13 @@
 import pygame
 import pygame_gui
-from player import Player
-from CONST import WIDTH, HEIGHT, FPS, PLAYERS, TILE_SPRITES, BULLETS, TILES_COUNT_WH, TILE_WH, MAP_WH
-from minimap import Minimap
-from load_map_optimiz import generate_level
-from commands import set_player_pos
-from chat import Chat
-from inventory import Inventory
-from action_detector import Detection
+from data.player_dir.player import Player
+from data.system_dir.CONST import WIDTH, HEIGHT, FPS, PLAYERS, BULLETS, MAP_WH
+from data.system_dir.minimap import Minimap
+from data.world_dir.load_map_optimiz import generate_level
+from data.chat_dir.commands import set_player_pos
+from data.chat_dir.chat import Chat
+from data.player_dir.inventory import Inventory
+from data.system_dir.action_detector import Detection
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -20,8 +20,7 @@ player = Player()
 minimap = Minimap()
 chat = Chat(manager)
 detection = Detection()
-inventory = Inventory(player.move_x,
-                      player.move_y)
+inventory = Inventory()
 
 map_conv = generate_level()
 PLAYERS.add(player)
@@ -42,10 +41,10 @@ def game():
             if event.type == pygame.KEYDOWN:
                 detection.detect_keys(event.key, chat, player, inventory)  # передаём нажатые клавиши в обработчик
             if event.type == pygame.MOUSEBUTTONDOWN:
-                detection.detect_mouse_keys(event.button, inventory)
+                detection.detect_mouse_keys(event.button, inventory, player)
 
         player.update()
-        BULLETS.update()
+        BULLETS.update(player.move_x, player.move_y)
         screen.blit(map_conv, (-player.move_x + (WIDTH - MAP_WH) / 2,
                                -player.move_y + (HEIGHT - MAP_WH) / 2))  # отображаем мир и двигаем его относительно нас
         PLAYERS.draw(screen)  # отрисовываем все спрайты

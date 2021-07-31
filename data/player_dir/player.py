@@ -1,5 +1,5 @@
 import pygame
-from CONST import WIDTH, HEIGHT
+from data.system_dir.CONST import WIDTH, HEIGHT
 
 
 class Player(pygame.sprite.Sprite):

@@ -44,7 +44,7 @@ def game():
                 detection.detect_mouse_keys(event.button, inventory, player)
 
         player.update()
-        BULLETS.update(player.move_x, player.move_y)
+        BULLETS.update(player)
         screen.blit(map_conv, (-player.move_x + (WIDTH - MAP_WH) / 2,
                                -player.move_y + (HEIGHT - MAP_WH) / 2))  # отображаем мир и двигаем его относительно нас
         PLAYERS.draw(screen)  # отрисовываем все спрайты

@@ -178,7 +178,7 @@ class Inventory:
                             self.taken_item = None
                             self.taken = False
 
-    def item_action(self, mouse_key, player):  # вычисляем положение выбранной ячейки
+    def item_action(self, mouse_key, player):  # вычисляем положение выбранной ячейки и выполняем с ней действие
         if mouse_key == 5:
             self.hotBarCell_pos -= 1
         elif mouse_key == 4:
@@ -191,7 +191,7 @@ class Inventory:
             item = self.inventory_cells[0][self.hotBarCell_pos]
             if item:
                 if item.item_type == 'weapon':
-                    item.fire(player.move_x, player.move_y)
+                    item.fire(player)
 
     def chosen_cell(self):  # отрисовываем выбранную ячейку
         pygame.draw.rect(self.hotBar_canvas,

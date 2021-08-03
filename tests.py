@@ -33,9 +33,10 @@ class Orb(object):
     def __init__(self, posorg, posdest):
         self.posx = posorg[0]
         self.posy = posorg[1]
-        self.targ = posdest
+        self.targx = posdest[0]
+        self.targy = posdest[1]
         self.posorg = posorg
-        self.bullet_vector = Move(self.targ[0], self.targ[1], self.posx, self.posy, 20)
+        self.bullet_vector = Move(self.targx, self.targy, self.posx, self.posy, 20)
 
     def update(self):
         self.posx += self.bullet_vector[0]
@@ -57,6 +58,7 @@ while run:
         if e.type == MOUSEBUTTONDOWN:
             if e.button == 1:
                 orbs.append(Orb((px, py), (mx, my)))
+                """px py это позиция игрока mx my позиция мыши"""
     # player_dir movement
     key = pygame.key.get_pressed()
 

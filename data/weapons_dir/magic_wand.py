@@ -1,30 +1,17 @@
 import pygame
 from data.system_dir.CONST import BULLETS, WIDTH, HEIGHT
+from data.system_dir.standard_item import Item
 
 
-class MagicWand(pygame.sprite.Sprite):
-    def __init__(self, filename, item_id, stack=1):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(filename)
-        self.image = pygame.transform.scale(self.image, (50, 50))
-        self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = 0, 0
+class MagicWand(Item):
+    def __init__(self,
+                 filename="data/textures_dir/weapons/magic_wand.png",
+                 item_id=2,
+                 item_type="weapon",
+                 stack=1):
+        super().__init__(filename, item_id, item_type, stack)
+
         self.bullet_speed = 5
-        self.mobility = False
-        self.item_type = 'weapon'
-        self.count = 1
-        self.max_count = stack
-        self.id = item_id
-
-    def set_pos(self, x, y, shift_x, shift_y):
-        self.rect.x = x * 75 + shift_x + 12
-        self.rect.y = y * 75 + shift_y + 12
-
-    def moving(self):
-        if self.mobility:
-            x, y = pygame.mouse.get_pos()
-            self.rect.x = x - 12
-            self.rect.y = y - 12
 
     def fire(self, player):
         x_mouse, y_mouse = pygame.mouse.get_pos()

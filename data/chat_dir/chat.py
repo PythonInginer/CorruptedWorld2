@@ -31,7 +31,7 @@ class Chat:
                     set_player_pos(player, int(text[1]), int(text[2]))
                 if text[0][1:] == 'give':
                     item_type, item_name = text[1].split(':')
-                    give_item(inventory, item_type, item_name, int(text[2]))
+                    give_item(inventory, item_name, int(text[2]))
                 if text[0][1:] == 'inventory':
                     if text[1] == 'clear':
                         inventory_clear(inventory)

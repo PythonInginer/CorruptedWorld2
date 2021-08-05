@@ -1,10 +1,13 @@
 import pygame
-from data.system_dir.item_list import get_key, items_norm
+from data.system_dir.item_list import return_item, items_id
 from data.system_dir.CONST import WIDTH, HEIGHT
 
 
 class Inventory:
     def __init__(self):
+        self.image = pygame.image.load('data/textures_dir/interface/inventory.png')
+        self.rect = self.image.get_rect()
+
         self.cell_x = 8  # количество клеток по X
         self.cell_y = 4  # количество клеток по Y
         self.side = 75  # сторона клетки
@@ -27,31 +30,13 @@ class Inventory:
         self.inventory_canvas.fill((0, 0, 0))  # очищаем холст
         self.inventory_canvas.set_colorkey((0, 0, 0))  # делаем холст прозрачным
 
-        self.create_inventory()  # отрисовываем сетку инвентаря
+        self.inventory_canvas.blit(self.image, (self.X, self.Y))
         if self.taken:
             self.taken_item.moving()
         self.items_group.draw(self.inventory_canvas)  # отрисовываем предметы
         self.draw_inventory_items_count()  # отрисовываем количество предметов
 
         screen.blit(self.inventory_canvas, (0, 0))
-
-    def create_inventory(self):  # создаём инвентарь
-        cell_pos_y = 0
-        for y in range(self.cell_y):
-            cell_pos_x = 0
-            for x in range(self.cell_x):
-                pygame.draw.rect(self.inventory_canvas,
-                                 (255, 255, 255),
-                                 (self.X + cell_pos_x, self.Y + cell_pos_y, self.side, self.side), 1)
-                cell_pos_x += self.side
-            cell_pos_y += self.side
-        pygame.draw.rect(self.inventory_canvas, (255, 0, 0), (self.X, self.Y, self.W, self.H), 5)
-        cell_pos_x = 0
-        for x in range(self.cell_x):
-            pygame.draw.rect(self.inventory_canvas,
-                             (0, 0, 255),
-                             (self.X + cell_pos_x, self.Y, self.side, self.side), 6)
-            cell_pos_x += self.side
 
     def draw_inventory_items_count(self):
         for y in range(len(self.inventory_cells)):
@@ -159,7 +144,7 @@ class Inventory:
                                 self.taken = False
                     else:
                         if selected_cell.count > 1:  # берём половину предметов
-                            self.taken_item = items_norm(get_key(selected_cell.id))
+                            self.taken_item = return_item(items_id[selected_cell.id])
                             self.items_group.add(self.taken_item)
                             self.taken_item.mobility = True
                             self.taken_item.count = selected_cell.count // 2
@@ -167,7 +152,7 @@ class Inventory:
                             self.taken = True
                 else:
                     if self.taken:  # кладём 1 предмет в пустую ячейку
-                        self.inventory_cells[selected_cell_y][selected_cell_x] = items_norm(get_key(self.taken_item.id))
+                        self.inventory_cells[selected_cell_y][selected_cell_x] = return_item(items_id[self.taken_item.id])
                         self.items_group.add(self.inventory_cells[selected_cell_y][selected_cell_x])
                         self.inventory_cells[selected_cell_y][selected_cell_x].set_pos(selected_cell_x,
                                                                                        selected_cell_y,

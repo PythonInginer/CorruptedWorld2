@@ -15,7 +15,7 @@ lvl_name = 'data/world_dir/map.txt'
 
 
 def load_image(name):  # рендерим изображение
-    image = pygame.image.load(f'data/textures_dir/{name}').convert()
+    image = pygame.image.load(f'data/textures_dir/blocks/{name}').convert()
     image = image.convert_alpha()
     image = pygame.transform.scale(image, (TILE_WH, TILE_WH))
     return image

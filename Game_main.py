@@ -9,6 +9,7 @@ from data.chat_dir.chat import Chat
 from data.player_dir.inventory import Inventory
 from data.system_dir.action_detector import Detection
 
+
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 manager = pygame_gui.UIManager((WIDTH, HEIGHT))
@@ -55,7 +56,8 @@ def game():
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.flip()
+    pygame.quit()
 
 
-game()
-pygame.quit()
+if __name__ == "__main__":
+    game()

@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="полностью доделана система выстрелов">
-      <change afterPath="$PROJECT_DIR$/data/items_dir/dirt.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/textures_dir/interface/inventory.png" afterDir="false" />
+    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="Создана система наследования предметов">
+      <change afterPath="$PROJECT_DIR$/data/player_dir/inventory_crafting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/system_dir/go_to_the_menu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/chat_dir/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/chat_dir/chat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/chat_dir/commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/chat_dir/commands.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/player_dir/inventory.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/inventory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/item_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/item_list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/standard_item.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/textures_dir/dirt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/textures_dir/blocks/dirt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/textures_dir/items/magic_wand.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/textures_dir/weapons/magic_wand.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/world_dir/load_map_optimiz.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/world_dir/load_map_optimiz.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_dir/CONST.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/CONST.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_dir/action_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/action_detector.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +49,7 @@
       <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures_dir\blocks" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Game_main">
+  <component name="RunManager" selected="Python.Game_main (1)">
     <configuration name="CONST" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="corupted_world_2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -70,6 +63,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="C:\Users\User\PycharmProjects\corupted_world_2\data\system\CONST.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Game_main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="corupted_world_2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Game_main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -99,7 +113,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Generate_world" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="go_to_the_menu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="corupted_world_2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -107,11 +121,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data/system_dir" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Generate_world.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/system_dir/go_to_the_menu.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -164,10 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Game_main (1)" />
+        <item itemvalue="Python.go_to_the_menu" />
         <item itemvalue="Python.tests" />
         <item itemvalue="Python.CONST" />
         <item itemvalue="Python.load_map" />
-        <item itemvalue="Python.Generate_world" />
       </list>
     </recent_temporary>
   </component>
@@ -215,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628021330717</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Создана система наследования предметов">
+      <created>1628180823140</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1628180823140</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -236,7 +258,8 @@
     <MESSAGE value="Создана первая версия стрельбы&#10;Переделана система координат&#10;Карта центрирована" />
     <MESSAGE value="Создана система папок&#10;Сделан первый стреляющий предмет&#10;Выявлен баг перемещения снарядов(надо пофиксить в следующем обновлении)" />
     <MESSAGE value="полностью доделана система выстрелов" />
-    <option name="LAST_COMMIT_MESSAGE" value="полностью доделана система выстрелов" />
+    <MESSAGE value="Создана система наследования предметов" />
+    <option name="LAST_COMMIT_MESSAGE" value="Создана система наследования предметов" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

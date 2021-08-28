@@ -1,7 +1,6 @@
 import pygame
 from data.system_dir.CONST import WIDTH, HEIGHT, CELL_WH
-from data.system_dir.item_list import inventory_crafting_list, items_id
-from data.system_dir.item_list import return_item
+from data.system_dir.item_list import inventory_crafting_list, items_id, return_item
 
 
 class Crafting:
@@ -18,10 +17,6 @@ class Crafting:
         self.inventory_items_count = {}
         self.items_can_craft = pygame.sprite.Group()
 
-    def update_all(self):
-        self.draw_craft()
-        self.screen.blit(self.craft_screen, (self.X, self.Y))
-
     def draw_craft(self):
         self.craft_screen.fill((0, 0, 0))
         self.craft_screen.set_colorkey((0, 0, 0))
@@ -33,6 +28,8 @@ class Crafting:
         pygame.draw.rect(self.craft_screen, (255, 255, 255), (120, 170, 65, 65), 5)
 
         self.items_can_craft.draw(self.craft_screen)
+
+        self.screen.blit(self.craft_screen, (self.X, self.Y))
 
     def update_can_craft(self):
         self.inventory_items_count = {}
@@ -94,9 +91,9 @@ class Crafting:
     def update_craft_list(self, spin):
         self.items_can_craft.empty()
         if spin == 5:
-            self.craft_list_index -= 1
-        elif spin == 4:
             self.craft_list_index += 1
+        elif spin == 4:
+            self.craft_list_index -= 1
 
         if self.craft_list_index < 0:
             self.craft_list_index = 0

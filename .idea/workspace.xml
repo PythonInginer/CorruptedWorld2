@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="Создана кнопка выхода из игры">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="Добавлена система крафтов&#10;Добавлен requirements.txt&#10;Изменены некоторые параметры классов">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/player_dir/inventory.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/inventory.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/player_dir/inventory_crafting.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/inventory_crafting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/CONST.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/CONST.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_dir/action_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/action_detector.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_dir/item_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/item_list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/standard_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/standard_item.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +50,7 @@
       <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures_dir\blocks" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Game_main">
+  <component name="RunManager" selected="Python.Game_main (1)">
     <configuration name="Game_main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="corupted_world_2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -182,11 +179,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Game_main (1)" />
+        <item itemvalue="Python.tests" />
         <item itemvalue="Python.inventory" />
         <item itemvalue="Python.item_list" />
         <item itemvalue="Python.smal_tests" />
-        <item itemvalue="Python.Game_main (1)" />
-        <item itemvalue="Python.tests" />
       </list>
     </recent_temporary>
   </component>
@@ -248,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628239967136</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Добавлена система крафтов&#10;Добавлен requirements.txt&#10;Изменены некоторые параметры классов">
+      <created>1630147227323</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1630147227323</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -271,7 +275,8 @@
     <MESSAGE value="полностью доделана система выстрелов" />
     <MESSAGE value="Создана система наследования предметов" />
     <MESSAGE value="Создана кнопка выхода из игры" />
-    <option name="LAST_COMMIT_MESSAGE" value="Создана кнопка выхода из игры" />
+    <MESSAGE value="Добавлена система крафтов&#10;Добавлен requirements.txt&#10;Изменены некоторые параметры классов" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена система крафтов&#10;Добавлен requirements.txt&#10;Изменены некоторые параметры классов" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

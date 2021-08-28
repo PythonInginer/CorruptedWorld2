@@ -39,9 +39,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x, self.rect.y = standard_x, standard_y
         self.range = 300
 
-        self.step_x, self.step_y = Move_bullet(self.start_x, self.start_y,
-                                               x_mouse, y_mouse,
-                                               self.speed)
+        self.step_x, self.step_y = Move_bullet(self.start_x, self.start_y, x_mouse, y_mouse, self.speed)
 
     def update(self, player):
         self.fly_x += self.step_x
@@ -50,8 +48,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x = -player.move_x + self.fly_x
         self.rect.y = -player.move_y + self.fly_y
 
-        range_now = ((self.fly_x - self.start_x) ** 2 +
-                     (self.fly_y - self.start_y) ** 2) ** 0.5
+        range_now = ((self.fly_x - self.start_x) ** 2 + (self.fly_y - self.start_y) ** 2) ** 0.5
         if range_now >= self.range:
             self.kill()
 

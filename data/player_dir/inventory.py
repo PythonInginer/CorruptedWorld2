@@ -61,26 +61,16 @@ class Inventory:
     def draw_hotBar(self, screen):
         self.hotBar_canvas.fill((0, 0, 0))
         self.hotBar_canvas.set_colorkey((0, 0, 0))
-
-        self.create_hotBar()
-        self.hotBar_group.draw(self.hotBar_canvas)
-        self.draw_hotBar_items_count()
-        self.chosen_cell()
-
-        screen.blit(self.hotBar_canvas, (0, 0))
-
-    def create_hotBar(self):
-        for x in range(self.cell_x):  # рисуем сам инвентарь
+        """Рисуем хотбар"""
+        for x in range(self.cell_x):
             pygame.draw.rect(self.hotBar_canvas,
                              (255, 255, 255),
                              (self.X + self.side * x, self.Y, self.side, self.side), 1)
-
-        self.hotBar_group.empty()  # очищаем при открытие инвенторя
-        for item in self.inventory_cells[0]:  # отрисовываем вещи в хотбаре
-            if item:
-                self.hotBar_group.add(item)
-
-    def draw_hotBar_items_count(self):
+        """Обновляем хотбар"""
+        self.update_hotBar()
+        """Рисуем предметы"""
+        self.hotBar_group.draw(self.hotBar_canvas)
+        """Рисуем количество предметов"""
         for x in range(len(self.inventory_cells[0])):
             if self.inventory_cells[0][x]:
                 if self.inventory_cells[0][x].item_type == 'item':
@@ -88,6 +78,18 @@ class Inventory:
                     stack_style = pygame.font.Font(None, 30)
                     text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
                     self.hotBar_canvas.blit(text, (cell.rect.x + 40, cell.rect.y + 40))
+        """Рисуем выбранную ячейку"""
+        pygame.draw.rect(self.hotBar_canvas,
+                         (0, 0, 255),
+                         (self.X + self.hotBarCell_pos * self.side, self.Y, self.side, self.side), 5)
+        """Накладываем золст хотбара на основной холст"""
+        screen.blit(self.hotBar_canvas, (0, 0))
+
+    def update_hotBar(self):
+        self.hotBar_group.empty()  # очищаем при открытие инвенторя
+        for item in self.inventory_cells[0]:  # отрисовываем вещи в хотбаре
+            if item:
+                self.hotBar_group.add(item)
 
     def mouse_press_detect(self, mouse_key):  # механика перетаскивания вещей в инвентаре
         mouse_pos_x, mouse_pos_y = pygame.mouse.get_pos()
@@ -205,7 +207,6 @@ class Inventory:
                             if flag:
                                 break
 
-
     def item_action(self, mouse_key, player):  # вычисляем положение выбранной ячейки и выполняем с ней действие
         if mouse_key == 5:
             self.hotBarCell_pos -= 1
@@ -220,11 +221,6 @@ class Inventory:
             if item:
                 if item.item_type == 'weapon':
                     item.fire(player)
-
-    def chosen_cell(self):  # отрисовываем выбранную ячейку
-        pygame.draw.rect(self.hotBar_canvas,
-                         (0, 0, 255),
-                         (self.X + self.hotBarCell_pos * self.side, self.Y, self.side, self.side), 5)
 
     def append_item(self, item):  # механика добавления предмета в инвентарь
         break_flag = False

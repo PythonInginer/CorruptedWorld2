@@ -1,7 +1,6 @@
 import pygame
 import pygame_gui
 from data.system_dir.CONST import WIDTH, HEIGHT, FPS, PLAYERS, BULLETS, MAP_WH, GlobalFlags
-from data.world_dir.load_map_optimiz import generate_level
 from data.chat_dir.commands import set_player_pos
 """импорт классов"""
 from data.chat_dir.chat import Chat
@@ -24,9 +23,8 @@ chat = Chat(manager)
 GF = GlobalFlags()
 inventory = Inventory()
 crafting = Crafting(screen, inventory.inventory_cells)
-detection = Detection(screen, GF, crafting)
+detection = Detection(screen, GF, player, inventory, crafting, chat)
 
-map_conv = generate_level()
 PLAYERS.add(player)
 
 set_player_pos(player, 0, 0)
@@ -42,18 +40,13 @@ def game():
             if event.type == pygame.QUIT:
                 GF.RUNNING = False
             if event.type == pygame.KEYDOWN:
-                detection.detect_keys(event.key, chat, player, inventory)  # передаём нажатые клавиши в обработчик
+                detection.get_keys(event.key)
             if event.type == pygame.MOUSEBUTTONDOWN:
-                detection.detect_mouse_keys(event.button, inventory, player)
+                detection.get_mouse_keys(event.button)
 
-        player.update()
-        BULLETS.update(player)
-        screen.blit(map_conv, (-player.move_x + (WIDTH - MAP_WH) / 2,
-                               -player.move_y + (HEIGHT - MAP_WH) / 2))  # отображаем мир и двигаем его относительно нас
-        PLAYERS.draw(screen)  # отрисовываем все спрайты
-        BULLETS.draw(screen)
-
-        detection.always_update(inventory, minimap, player)
+        detection.update_all()
+        detection.draw_all()
+        detection.always_update()
 
         manager.update(time_delta)
         manager.draw_ui(screen)

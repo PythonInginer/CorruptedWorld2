@@ -7,6 +7,8 @@ TILES_COUNT_WH = int((len(open('data/world_dir/map.txt', 'r', encoding='utf8').r
 
 TILE_WH = 75
 STACK = 4
+CELL_WH = 75
+CELL_X, CELL_Y = 8, 4  # количество клеток по X Y
 MAP_WH = TILES_COUNT_WH * TILE_WH
 
 BULLETS = pygame.sprite.Group()

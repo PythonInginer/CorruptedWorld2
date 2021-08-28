@@ -1,13 +1,15 @@
 import pygame
 import pygame_gui
-from data.player_dir.player import Player
 from data.system_dir.CONST import WIDTH, HEIGHT, FPS, PLAYERS, BULLETS, MAP_WH, GlobalFlags
-from data.system_dir.minimap import Minimap
 from data.world_dir.load_map_optimiz import generate_level
 from data.chat_dir.commands import set_player_pos
+"""импорт классов"""
 from data.chat_dir.chat import Chat
+from data.player_dir.player import Player
+from data.system_dir.minimap import Minimap
 from data.player_dir.inventory import Inventory
 from data.system_dir.action_detector import Detection
+from data.player_dir.inventory_crafting import Crafting
 
 
 pygame.init()
@@ -20,8 +22,9 @@ player = Player()
 minimap = Minimap()
 chat = Chat(manager)
 GF = GlobalFlags()
-detection = Detection(screen, GF)
 inventory = Inventory()
+crafting = Crafting(screen, inventory.inventory_cells)
+detection = Detection(screen, GF, crafting)
 
 map_conv = generate_level()
 PLAYERS.add(player)

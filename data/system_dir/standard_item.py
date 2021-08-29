@@ -14,6 +14,7 @@ class Item(pygame.sprite.Sprite):
 
         """Настраиваемые параметры"""
         self.mobility = False
+        self.drop = False
         self.item_type = item_type
         self.item_id = item_id
         self.max_count = stack
@@ -32,6 +33,9 @@ class Item(pygame.sprite.Sprite):
         elif cell_type == 2:
             self.rect.x = x + 7
             self.rect.y = y + 7
+
+    def drop_moving(self):
+        pass
 
     def moving(self):  # функция, которая позволяет двигать предмет мышью
         if self.mobility:

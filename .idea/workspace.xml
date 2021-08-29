@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="Добавлена система крафтов&#10;Добавлен requirements.txt&#10;Изменены некоторые параметры классов">
+    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="Сохранение перед глобальным редактированием кода.&#10;V0.0.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/player_dir/inventory.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/inventory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/player_dir/inventory_crafting.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/inventory_crafting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/chat_dir/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/chat_dir/chat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/player_dir/inventory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/player_dir/inventory_crafting.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/player_dir/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_dir/CONST.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/CONST.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_dir/action_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/action_detector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/item_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/item_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_dir/standard_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/standard_item.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -252,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630147227323</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Сохранение перед глобальным редактированием кода.&#10;V0.0.1">
+      <created>1630189089201</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1630189089201</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -276,7 +286,8 @@
     <MESSAGE value="Создана система наследования предметов" />
     <MESSAGE value="Создана кнопка выхода из игры" />
     <MESSAGE value="Добавлена система крафтов&#10;Добавлен requirements.txt&#10;Изменены некоторые параметры классов" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлена система крафтов&#10;Добавлен requirements.txt&#10;Изменены некоторые параметры классов" />
+    <MESSAGE value="Сохранение перед глобальным редактированием кода.&#10;V0.0.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Сохранение перед глобальным редактированием кода.&#10;V0.0.1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

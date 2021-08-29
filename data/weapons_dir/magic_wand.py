@@ -13,30 +13,30 @@ class MagicWand(Item):
 
         self.bullet_speed = 5
 
-    def fire(self, player):
+    def fire(self, x, y):
         x_mouse, y_mouse = pygame.mouse.get_pos()
-        x_mouse += player.move_x
-        y_mouse += player.move_y
+        x_mouse += x
+        y_mouse += y
         BULLETS.add(Bullet('data/textures_dir/bullets/magic_wand_bullet.png',
                            x_mouse, y_mouse,
                            self.bullet_speed,
-                           player))
+                           x, y))
 
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, filename, x_mouse, y_mouse, speed, player):
+    def __init__(self, filename, x_mouse, y_mouse, speed, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(filename)
         self.image = pygame.transform.scale(self.image, (50, 50))
         self.rect = self.image.get_rect()
 
-        standard_x = player.move_x + WIDTH // 2 - 25
-        standard_y = player.move_y + HEIGHT // 2 - 25
+        standard_x = x + WIDTH // 2 - 25
+        standard_y = y + HEIGHT // 2 - 25
 
         self.speed = speed
         self.start_x, self.start_y = standard_x, standard_y
         self.fly_x, self.fly_y = standard_x, standard_y
-        self.rect.x, self.rect.y = standard_x, standard_y
+        self.rect.x, self.rect.y = WIDTH // 2 - 25, HEIGHT // 2 - 25
         self.range = 300
 
         self.step_x, self.step_y = Move_bullet(self.start_x, self.start_y, x_mouse, y_mouse, self.speed)

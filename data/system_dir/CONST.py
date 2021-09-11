@@ -1,5 +1,7 @@
 import pygame
 
+PG = pygame
+PG.init()
 
 FPS = 60
 WIDTH, HEIGHT = 1920, 1080
@@ -18,3 +20,4 @@ TILE_SPRITES = pygame.sprite.Group()
 class GlobalFlags:
     def __init__(self):
         self.RUNNING = True
+

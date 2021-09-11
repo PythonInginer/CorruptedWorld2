@@ -2,7 +2,7 @@ import pygame
 from data.system_dir.CONST import WIDTH, HEIGHT
 
 
-class ExitGameBtn:
+class ExitToMenuBtn:
     def __init__(self, screen):
         self.screen = screen
 

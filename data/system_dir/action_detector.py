@@ -1,7 +1,6 @@
-import pygame
-from data.system_dir.go_to_the_menu import ExitGameBtn
+from data.system_dir.buttons import ExitToMenuBtn
 from data.world_dir.load_map_optimiz import generate_level
-from data.system_dir.CONST import PLAYERS, BULLETS, WIDTH, HEIGHT, MAP_WH
+from data.system_dir.CONST import PLAYERS, BULLETS, WIDTH, HEIGHT, MAP_WH, PG
 
 
 class Detection:
@@ -12,7 +11,7 @@ class Detection:
         self.player = player
         self.chat = chat
         """Кнопки"""
-        self.exit_btn = ExitGameBtn(screen)
+        self.exit_btn = ExitToMenuBtn(screen)
         """Флаги"""
         self.chat_detect = False  # чат
         self.inventory_detect = False  # инвентарь
@@ -27,7 +26,7 @@ class Detection:
         self.map_conv = generate_level()  # мир
 
     def update_all(self):
-        self.player.update(pygame.key.get_pressed())
+        self.player.update(PG.key.get_pressed())
         PLAYERS.add(self.player)
         BULLETS.update(self.player)
         self.Xcords = -self.player.move_x + (WIDTH - MAP_WH) / 2
@@ -62,21 +61,26 @@ class Detection:
         if self.minimap_detect:
             self.minimap.draw(self.screen, self.player)  # получаем координаты и отображаем миникарту
 
+        if self.chat_detect:
+            self.chat.draw(self.screen)
+
     def detect_keys(self):
-        if self.key == pygame.K_RETURN:  # детектим откртие чата
+        if self.key == PG.K_RETURN:  # детектим откртие чата
             self.player.can_move = not self.player.can_move
             self.chat_detect = not self.chat_detect
+            self.chat.OnOff = self.chat_detect
 
-            self.chat.open_close_chat(self.chat_detect, self.player)
+            if not self.chat_detect:
+                self.chat.update(self.player)
 
-        if self.key == pygame.K_ESCAPE:  # детектим открытие инвентаря
+        if self.key == PG.K_ESCAPE:  # детектим открытие инвентаря
             self.inventory_detect = not self.inventory_detect
             self.hotBar_detect = not self.hotBar_detect
 
     def detect_mouse_keys(self):
         if self.inventory_detect:
             # выходим из игры при нажатии кнопки
-            if self.exit_btn.exit_button.collidepoint(pygame.mouse.get_pos()) and not self.chat_detect:
+            if self.exit_btn.exit_button.collidepoint(PG.mouse.get_pos()) and not self.chat_detect:
                 self.GF.RUNNING = False
 
             # перекладываем предметы в инвентаре
@@ -88,8 +92,25 @@ class Detection:
         if self.hotBar_detect:  # используем выбранный предмет
             self.player.item_action(self.mouse_key)
 
-    def get_keys(self, key):
-        self.key = key
+    def handle_event(self):
+        for event in PG.event.get():
+            if event.type == PG.QUIT:
+                self.GF.RUNNING = False
+                break
 
-    def get_mouse_keys(self, mouse_key):
-        self.mouse_key = mouse_key
+            if event.type == PG.KEYDOWN:
+                self.key = event.key
+
+                if self.chat_detect:
+                    self.chat.keyboard_action(event)
+
+                continue
+
+            if event.type == PG.MOUSEBUTTONDOWN:
+                self.mouse_key = event.button
+
+                if self.chat_detect:
+                    self.chat.mouse_action(event)
+
+                continue
+

@@ -112,17 +112,7 @@ class Player(pygame.sprite.Sprite):
         for y in range(len(self.inv_cells)):
             for x in range(len(self.inv_cells[y])):
                 if self.inv_cells[y][x]:
-                    if self.inv_cells[y][x].item_type == 'item':
-                        cell = self.inv_cells[y][x]
-                        stack_style = pygame.font.Font(None, 30)
-                        text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
-                        self.inventory_canvas.blit(text, (cell.rect.x + 40, cell.rect.y + 40))
-        if self.taken_item:
-            if self.taken_item.item_type == 'item':
-                cell = self.taken_item
-                stack_style = pygame.font.Font(None, 30)
-                text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
-                self.inventory_canvas.blit(text, (cell.rect.x + 40, cell.rect.y + 40))
+                    self.inv_cells[y][x].count_updater()
 
         # накладываем холст инвентаря на главный холст
         screen.blit(self.inventory_canvas, (0, 0))
@@ -149,11 +139,7 @@ class Player(pygame.sprite.Sprite):
         # отрисовываем количество предметов
         for x in range(len(self.inv_cells[0])):
             if self.inv_cells[0][x]:
-                if self.inv_cells[0][x].item_type == 'item':
-                    cell = self.inv_cells[0][x]
-                    stack_style = pygame.font.Font(None, 30)
-                    text = stack_style.render(f"{cell.count}", False, (255, 255, 255))
-                    self.hotBar_canvas.blit(text, (cell.rect.x + 40, cell.rect.y + 40))
+                self.inv_cells[0][x].count_updater()
 
         # отрисовываем выбраную ячейку
         pygame.draw.rect(self.hotBar_canvas,
@@ -234,6 +220,7 @@ class Player(pygame.sprite.Sprite):
                             self.taken_item.count = selected_cell.count // 2
                             self.inv_cells[selected_cell_y][selected_cell_x].count -= self.taken_item.count
                             self.taken = True
+                            self.taken_item.count_updater()
                 else:
                     if self.taken:  # кладём 1 предмет в пустую ячейку
                         self.inv_cells[selected_cell_y][selected_cell_x] = return_item(

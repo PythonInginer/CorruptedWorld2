@@ -18,7 +18,7 @@ class InputBox:
         self.text = text
 
         self.rect = PG.Rect(self.x, self.y, self.w, self.h)
-        self.FONT = PG.font.Font(None, self.txt_height)
+        self.FONT = PG.font.SysFont('Verdana', self.txt_height)
         self.txt_surface = self.FONT.render(text, True, self.txt_color)
         self.h_shift = (self.h - self.txt_surface.get_height()) // 2
         self.input_box_surface = PG.Surface((w, h))

@@ -6,7 +6,7 @@ class ExitToMenuBtn:
     def __init__(self, screen):
         self.screen = screen
 
-        font = pygame.font.Font(None, 50)
+        font = pygame.font.SysFont('Verdana', 40)
         self.text = font.render("Выйти в меню", True, (255, 255, 255))
 
         self.X = WIDTH - self.text.get_width() - 20

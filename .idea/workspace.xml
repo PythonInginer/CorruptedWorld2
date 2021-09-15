@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="Переработка кода завершена.">
-      <change afterPath="$PROJECT_DIR$/data/system_dir/input_box.py" afterDir="false" />
+    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="Отказ от библиотеки pygame_gui&#10;Создан класс InputBox&#10;Переработано окно чата&#10;&#10;***багфикс**">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/chat_dir/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/chat_dir/chat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/CONST.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/CONST.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/player_dir/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_dir/action_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/action_detector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/go_to_the_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/buttons.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_dir/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/buttons.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_dir/input_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/input_box.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_dir/standard_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/standard_item.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -266,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630256179439</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Отказ от библиотеки pygame_gui&#10;Создан класс InputBox&#10;Переработано окно чата&#10;&#10;***багфикс**">
+      <created>1631365701305</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1631365701305</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -274,7 +281,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -292,7 +311,8 @@
     <MESSAGE value="Добавлена система крафтов&#10;Добавлен requirements.txt&#10;Изменены некоторые параметры классов" />
     <MESSAGE value="Сохранение перед глобальным редактированием кода.&#10;V0.0.1" />
     <MESSAGE value="Переработка кода завершена." />
-    <option name="LAST_COMMIT_MESSAGE" value="Переработка кода завершена." />
+    <MESSAGE value="Отказ от библиотеки pygame_gui&#10;Создан класс InputBox&#10;Переработано окно чата&#10;&#10;***багфикс**" />
+    <option name="LAST_COMMIT_MESSAGE" value="Отказ от библиотеки pygame_gui&#10;Создан класс InputBox&#10;Переработано окно чата&#10;&#10;***багфикс**" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -10,7 +10,7 @@ class Chat(InputBox):
                  y=HEIGHT - 30 - 20,
                  w=500,
                  h=30,
-                 txt_height=32,
+                 txt_height=20,
                  txt_color=(255, 255, 255),
                  bg_color=(30, 30, 30),
                  outline_color_T=(121, 162, 185,),

@@ -1,6 +1,6 @@
 from data.system_dir.buttons import ExitToMenuBtn
 from data.world_dir.load_map_optimiz import generate_level
-from data.system_dir.CONST import PLAYERS, BULLETS, WIDTH, HEIGHT, MAP_WH, PG
+from data.system_dir.CONST import PLAYERS, BULLETS, DROP_ITEMS,  WIDTH, HEIGHT, MAP_WH, PG
 
 
 class Detection:
@@ -24,10 +24,11 @@ class Detection:
         self.Xcords = None  # координаты карты X
         self.Ycords = None  # координаты карты Y
         self.map_conv = generate_level()  # мир
+        PLAYERS.add(self.player)
 
     def update_all(self):
         self.player.update(PG.key.get_pressed())
-        PLAYERS.add(self.player)
+        DROP_ITEMS.update(self.player.move_x, self.player.move_y)
         BULLETS.update(self.player)
         self.Xcords = -self.player.move_x + (WIDTH - MAP_WH) / 2
         self.Ycords = -self.player.move_y + (HEIGHT - MAP_WH) / 2
@@ -46,6 +47,7 @@ class Detection:
     def draw_all(self):
         self.screen.blit(self.map_conv, (self.Xcords, self.Ycords))  # отображаем мир и двигаем его относительно игрока
         PLAYERS.draw(self.screen)
+        DROP_ITEMS.draw(self.screen)
         BULLETS.draw(self.screen)
 
         if self.hotBar_detect:

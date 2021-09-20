@@ -8,6 +8,9 @@ WIDTH, HEIGHT = 1920, 1080
 TILES_COUNT_WH = int((len(open('data/world_dir/map.txt', 'r', encoding='utf8').readline()) // 2))
 
 TILE_WH = 75
+CELL_X = 8
+CELL_Y = 4
+CELL_WH = 75
 STACK = 4
 MAP_WH = TILES_COUNT_WH * TILE_WH
 

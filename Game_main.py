@@ -1,8 +1,8 @@
-from data.system_dir.CONST import WIDTH, HEIGHT, FPS, PLAYERS, BULLETS, MAP_WH, GlobalFlags, PG
+from data.system_dir.CONST import WIDTH, HEIGHT, FPS, GlobalFlags, PG
 from data.chat_dir.commands import set_player_pos
 """импорт классов"""
 from data.chat_dir.chat import Chat
-from data.player_dir.player import Player
+from data.player_dir.playerV2 import Player
 from data.system_dir.minimap import Minimap
 from data.system_dir.action_detector import Detection
 
@@ -28,8 +28,6 @@ def game():
         screen.set_colorkey((0, 0, 0))
 
         detection.handle_event()
-
-        detection.update_all()
         detection.draw_all()
 
         PG.display.flip()

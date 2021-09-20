@@ -14,49 +14,21 @@ class Detection:
         self.exit_btn = ExitToMenuBtn(screen)
         """Флаги"""
         self.chat_detect = False  # чат
-        self.inventory_detect = False  # инвентарь
         self.minimap_detect = False  # миникарта
-        self.hotBar_detect = True  # хотбар
-        """Клавиши"""
-        self.key = None
-        self.mouse_key = None
         """Переменные"""
-        self.Xcords = None  # координаты карты X
-        self.Ycords = None  # координаты карты Y
+        self.Xcords = 0  # координаты карты X
+        self.Ycords = 0  # координаты карты Y
         self.map_conv = generate_level()  # мир
         PLAYERS.add(self.player)
 
-    def update_all(self):
-        self.player.update(PG.key.get_pressed())
-        DROP_ITEMS.update(self.player.move_x, self.player.move_y)
-        BULLETS.update(self.player)
-        self.Xcords = -self.player.move_x + (WIDTH - MAP_WH) / 2
-        self.Ycords = -self.player.move_y + (HEIGHT - MAP_WH) / 2
-
-        if self.inventory_detect and (self.key or self.mouse_key):
-            self.player.update_can_craft()
-
-        if self.key:
-            self.detect_keys()
-            self.key = None
-
-        if self.mouse_key:
-            self.detect_mouse_keys()
-            self.mouse_key = None
-
     def draw_all(self):
         self.screen.blit(self.map_conv, (self.Xcords, self.Ycords))  # отображаем мир и двигаем его относительно игрока
-        PLAYERS.draw(self.screen)
         DROP_ITEMS.draw(self.screen)
+        PLAYERS.draw(self.screen)
         BULLETS.draw(self.screen)
+        self.player.draw_all(self.screen)
 
-        if self.hotBar_detect:
-            self.player.draw_hotBar(self.screen)  # отрисовывает горячие слоты
-
-        if self.inventory_detect:
-            self.player.draw_inventory(self.screen)  # отрисовываем инвентарь
-            self.player.draw_craft(self.screen)  # отрисовываем крафты
-
+        if self.player.inv_open:
             if not self.chat_detect:
                 self.exit_btn.draw()  # отрисовываем кнопку выхода в меню
 
@@ -66,53 +38,44 @@ class Detection:
         if self.chat_detect:
             self.chat.draw(self.screen)
 
-    def detect_keys(self):
-        if self.key == PG.K_RETURN:  # детектим откртие чата
-            self.player.can_move = not self.player.can_move
-            self.chat_detect = not self.chat_detect
-            self.chat.OnOff = self.chat_detect
-
-            if not self.chat_detect:
-                self.chat.update(self.player)
-
-        if self.key == PG.K_ESCAPE:  # детектим открытие инвентаря
-            self.inventory_detect = not self.inventory_detect
-            self.hotBar_detect = not self.hotBar_detect
-
-    def detect_mouse_keys(self):
-        if self.inventory_detect:
-            # выходим из игры при нажатии кнопки
-            if self.exit_btn.exit_button.collidepoint(PG.mouse.get_pos()) and not self.chat_detect:
-                self.GF.RUNNING = False
-
-            # перекладываем предметы в инвентаре
-            self.player.mouse_press_detect(self.mouse_key)
-
-            # передаём вращение колёсика в крафты
-            self.player.update_craft_list(self.mouse_key)
-
-        if self.hotBar_detect:  # используем выбранный предмет
-            self.player.item_action(self.mouse_key)
-
     def handle_event(self):
+        self.player.moving(PG.key.get_pressed())
+        if self.player.inv_open:
+            if self.player.taken_item:
+                self.player.taken_item.moving()
         for event in PG.event.get():
             if event.type == PG.QUIT:
                 self.GF.RUNNING = False
                 break
 
             if event.type == PG.KEYDOWN:
-                self.key = event.key
-
+                if event.key == PG.K_RETURN:
+                    # детектим откртие чата
+                    self.player.can_move = not self.player.can_move
+                    self.player.can_action = not self.player.can_action
+                    self.chat_detect = not self.chat_detect
+                    self.chat.OnOff = self.chat_detect
+                    if not self.chat_detect:
+                        self.chat.update(self.player)
                 if self.chat_detect:
                     self.chat.keyboard_action(event)
 
+                if event.key == PG.K_ESCAPE:  # детектим открытие инвентаря
+                    self.player.inv_open = not self.player.inv_open
+                self.player.update_keyboard(event.key)
                 continue
 
             if event.type == PG.MOUSEBUTTONDOWN:
-                self.mouse_key = event.button
-
+                self.player.update_mouse(event.button)
                 if self.chat_detect:
                     self.chat.mouse_action(event)
-
+                if self.player.inv_open:
+                    # выходим из игры при нажатии кнопки
+                    if self.exit_btn.exit_button.collidepoint(PG.mouse.get_pos()) and not self.chat_detect:
+                        self.GF.RUNNING = False
                 continue
 
+        DROP_ITEMS.update(self.player.move_x, self.player.move_y)
+        BULLETS.update(self.player)
+        self.Xcords = -self.player.move_x + (WIDTH - MAP_WH) / 2
+        self.Ycords = -self.player.move_y + (HEIGHT - MAP_WH) / 2

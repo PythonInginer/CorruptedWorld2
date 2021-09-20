@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="Отказ от библиотеки pygame_gui&#10;Создан класс InputBox&#10;Переработано окно чата&#10;&#10;***багфикс**">
+    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="изменение шрифта&#10;изменение механики отрисовки количества предметов&#10;начало создание механики брошенного предмета">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/chat_dir/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/chat_dir/chat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/player_dir/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_dir/CONST.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/CONST.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_dir/action_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/action_detector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/buttons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/input_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/input_box.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_dir/standard_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/standard_item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,11 +43,11 @@
       <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\player_dir" />
       <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures_dir\weapons" />
       <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\system_dir" />
       <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\items_dir" />
       <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures_dir\interface" />
-      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures_dir\blocks" />
     </key>
   </component>
   <component name="RunManager" selected="Python.Game_main (1)">
@@ -273,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631365701305</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="изменение шрифта&#10;изменение механики отрисовки количества предметов">
+      <created>1631731784724</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1631731784724</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -312,7 +319,8 @@
     <MESSAGE value="Сохранение перед глобальным редактированием кода.&#10;V0.0.1" />
     <MESSAGE value="Переработка кода завершена." />
     <MESSAGE value="Отказ от библиотеки pygame_gui&#10;Создан класс InputBox&#10;Переработано окно чата&#10;&#10;***багфикс**" />
-    <option name="LAST_COMMIT_MESSAGE" value="Отказ от библиотеки pygame_gui&#10;Создан класс InputBox&#10;Переработано окно чата&#10;&#10;***багфикс**" />
+    <MESSAGE value="изменение шрифта&#10;изменение механики отрисовки количества предметов" />
+    <option name="LAST_COMMIT_MESSAGE" value="изменение шрифта&#10;изменение механики отрисовки количества предметов" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

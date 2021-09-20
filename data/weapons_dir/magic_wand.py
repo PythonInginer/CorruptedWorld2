@@ -8,8 +8,9 @@ class MagicWand(Item):
                  filename="data/textures_dir/weapons/magic_wand.png",
                  item_id=2,
                  item_type="weapon",
-                 stack=1):
-        super().__init__(filename, item_id, item_type, stack)
+                 stack=1,
+                 stacking=False):
+        super().__init__(filename, item_id, item_type, stack, stacking)
 
         self.bullet_speed = 5
 

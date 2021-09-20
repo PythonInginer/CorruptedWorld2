@@ -1,5 +1,5 @@
 import pygame
-from data.system_dir.CONST import WIDTH, HEIGHT
+from data.system_dir.CONST import WIDTH, HEIGHT, DROP_ITEMS
 from data.system_dir.item_list import return_item, items_id, inventory_crafting_list
 
 
@@ -24,7 +24,6 @@ class Player(pygame.sprite.Sprite):
         self.invH = self.side * self.cell_y
         self.invX = WIDTH - self.invW - 20
         self.invY = 20
-        self.taken = False
         self.division = False
         self.taken_item = None
         self.inv_cells = [[None for _ in range(self.cell_x)] for _ in range(self.cell_y)]
@@ -50,6 +49,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, keys):  # обновление всех действий связанных с игроком
         self.moving(keys)
+        self.objects_motions(keys)
     """
     ********************************************************************************************************************
     Действия игрока
@@ -68,6 +68,16 @@ class Player(pygame.sprite.Sprite):
 
             if keys[pygame.K_d]:
                 self.move_x += 5
+
+    def objects_motions(self, keys):
+        if self.can_move:
+            #  поднимаем предметы
+            if keys[pygame.K_e]:
+                drop = pygame.sprite.spritecollideany(self, DROP_ITEMS)
+                if drop:
+                    DROP_ITEMS.remove(drop)
+                    drop.drop = False
+                    self.append_item(drop)
 
     def item_action(self, mouse_key):  # вычисляем положение выбранной ячейки и выполняем с ней действие
         if mouse_key == 5:
@@ -96,51 +106,33 @@ class Player(pygame.sprite.Sprite):
         # делаем холст прозрачным
         self.inventory_canvas.set_colorkey((0, 0, 0))
 
-        pygame.draw.rect(self.inventory_canvas, (255, 0, 0), (self.invX, self.invY, self.invW, self.invH), 1)  # отладка
+        """отладка"""
+        pygame.draw.rect(self.inventory_canvas, (255, 0, 0), (self.invX, self.invY, self.invW, self.invH), 1)
 
         # накладываем текстуру инвентаря
         self.inventory_canvas.blit(self.inv_image, (self.invX, self.invY))
-
         # отрисовываем предмет, который двигаем
-        if self.taken:
+        if self.taken_item:
             self.taken_item.moving()
-
         # отрисовываем предметы
         self.items_group.draw(self.inventory_canvas)
-
-        # отрисовываем количество предметов
-        for y in range(len(self.inv_cells)):
-            for x in range(len(self.inv_cells[y])):
-                if self.inv_cells[y][x]:
-                    self.inv_cells[y][x].count_updater()
-
         # накладываем холст инвентаря на главный холст
         screen.blit(self.inventory_canvas, (0, 0))
 
     def draw_hotBar(self, screen):
         # очищаем холст
         self.hotBar_canvas.fill((0, 0, 0))
-
         # делаем его прозрачным
         self.hotBar_canvas.set_colorkey((0, 0, 0))
-
         # отрисовываем клетки хотбара
         for x in range(self.cell_x):
             pygame.draw.rect(self.hotBar_canvas,
                              (255, 255, 255),
                              (self.invX + self.side * x, self.invY, self.side, self.side), 1)
-
         # обновляем хотбар
         self.update_hotBar()
-
         # отрисовываем предметы в хотбаре
         self.hotBar_group.draw(self.hotBar_canvas)
-
-        # отрисовываем количество предметов
-        for x in range(len(self.inv_cells[0])):
-            if self.inv_cells[0][x]:
-                self.inv_cells[0][x].count_updater()
-
         # отрисовываем выбраную ячейку
         pygame.draw.rect(self.hotBar_canvas,
                          (0, 0, 255),
@@ -161,17 +153,19 @@ class Player(pygame.sprite.Sprite):
         selected_cell_y = (mouse_pos_y - self.invY) // self.side
         if 0 <= selected_cell_x <= self.cell_x - 1 and 0 <= selected_cell_y <= self.cell_y - 1:
             selected_cell = self.inv_cells[selected_cell_y][selected_cell_x]
-            if mouse_key == 1:  # работа с ЛКМ
-                if self.taken:
-                    if not selected_cell:  # кладём предмет
+            # работа с ЛКМ
+            if mouse_key == 1:
+                if self.taken_item:
+                    # кладём предмет
+                    if not selected_cell:
                         self.taken_item.mobility = False
                         self.taken_item.set_inventory_pos(selected_cell_x, selected_cell_y, self.invX, self.invY)
                         self.inv_cells[selected_cell_y][selected_cell_x] = self.taken_item
                         self.taken_item = None
-                        self.taken = False
 
                     else:
-                        if self.taken_item.item_id != selected_cell.item_id:  # меняем предметы местами
+                        # меняем предметы местами
+                        if self.taken_item.item_id != selected_cell.item_id:
                             item = self.taken_item
                             self.taken_item = selected_cell
                             self.inv_cells[selected_cell_y][selected_cell_x] = item
@@ -180,7 +174,8 @@ class Player(pygame.sprite.Sprite):
                                                                                                selected_cell_y,
                                                                                                self.invX, self.invY)
                             self.taken_item.mobility = True
-                        else:  # добавляем предметы к предметам
+                        else:
+                            # добавляем предметы к предметам
                             taken_item_count = self.taken_item.count
                             item_count = selected_cell.count
                             max_stack = selected_cell.max_count
@@ -190,28 +185,25 @@ class Player(pygame.sprite.Sprite):
                                     self.inv_cells[selected_cell_y][selected_cell_x].count += taken_item_count
                                     self.taken_item.kill()
                                     self.taken_item = None
-                                    self.taken = False
                                 else:
                                     self.inv_cells[selected_cell_y][selected_cell_x].count = max_stack
                                     self.taken_item.count = item_count
 
                 else:
                     if selected_cell:  # берём предмет
-                        self.taken = True
                         self.taken_item = selected_cell
                         self.taken_item.mobility = True
                         self.inv_cells[selected_cell_y][selected_cell_x] = None
 
             if mouse_key == 3:  # работа с ПКМ
                 if selected_cell:
-                    if self.taken:  # добавляеи по 1 предмету из взятого стака к другому стаку
+                    if self.taken_item:  # добавляеи по 1 предмету из взятого стака к другому стаку
                         if selected_cell.count < selected_cell.max_count:
                             self.taken_item.count -= 1
                             self.inv_cells[selected_cell_y][selected_cell_x].count += 1
                             if self.taken_item.count == 0:
                                 self.taken_item.kill()
                                 self.taken_item = None
-                                self.taken = False
                     else:
                         if selected_cell.count > 1:  # берём половину предметов
                             self.taken_item = return_item(items_id[selected_cell.item_id])
@@ -219,10 +211,9 @@ class Player(pygame.sprite.Sprite):
                             self.taken_item.mobility = True
                             self.taken_item.count = selected_cell.count // 2
                             self.inv_cells[selected_cell_y][selected_cell_x].count -= self.taken_item.count
-                            self.taken = True
                             self.taken_item.count_updater()
                 else:
-                    if self.taken:  # кладём 1 предмет в пустую ячейку
+                    if self.taken_item:  # кладём 1 предмет в пустую ячейку
                         self.inv_cells[selected_cell_y][selected_cell_x] = return_item(
                             items_id[self.taken_item.item_id])
                         self.items_group.add(self.inv_cells[selected_cell_y][selected_cell_x])
@@ -233,7 +224,6 @@ class Player(pygame.sprite.Sprite):
                         if self.taken_item.count == 0:
                             self.taken_item.kill()
                             self.taken_item = None
-                            self.taken = False
 
         elif WIDTH - 105 <= mouse_pos_x <= WIDTH - 30 and 405 <= mouse_pos_y <= 480:  # крафт
             spent = False
@@ -249,7 +239,6 @@ class Player(pygame.sprite.Sprite):
                         self.taken_item = return_item(items_id[self.can_craft[self.craft_index]])
                         self.items_group.add(self.taken_item)
                         self.taken_item.mobility = True
-                        self.taken = True
                         spent = True
 
                 if spent:
@@ -272,17 +261,31 @@ class Player(pygame.sprite.Sprite):
                                             break
                             if flag:
                                 break
+        else:
+            #  бросаем предмет
+            if self.taken_item:
+                self.taken_item.set_drop_pos(self.move_x, self.move_y)
+                self.taken_item.mobility = False
+                self.taken_item.drop = True
+                self.update_items_count()
+
+                DROP_ITEMS.add(self.taken_item)
+
+                self.taken_item = None
+
+        self.update_items_count()
 
     def append_item(self, item):  # механика добавления предмета в инвентарь
         break_flag = False
         for y in range(self.cell_y):
             for x in range(self.cell_x):
                 if self.inv_cells[y][x]:
-                    if (self.inv_cells[y][x].item_id == item.item_id and
-                            self.inv_cells[y][x].count < self.inv_cells[y][x].max_count):
-                        self.inv_cells[y][x].count += 1
-                        break_flag = True
-                        break
+                    if self.inv_cells[y][x].counting:
+                        if (self.inv_cells[y][x].item_id == item.item_id and
+                                self.inv_cells[y][x].count < self.inv_cells[y][x].max_count):
+                            self.inv_cells[y][x].count += 1
+                            break_flag = True
+                            break
                 else:
                     item.set_inventory_pos(x, y, self.invX, self.invY)
                     self.items_group.add(item)
@@ -292,9 +295,20 @@ class Player(pygame.sprite.Sprite):
             if break_flag:
                 break
 
+        self.update_items_count()
+
     def inventory_clear(self):  # Очистка инвентаря
         self.inv_cells = [[None for _ in range(self.cell_x)] for _ in range(self.cell_y)]
         self.items_group.empty()
+
+    def update_items_count(self):
+        for y in range(len(self.inv_cells)):
+            for x in range(len(self.inv_cells[y])):
+                if self.inv_cells[y][x]:
+                    self.inv_cells[y][x].count_updater()
+
+        if self.taken_item:
+            self.taken_item.count_updater()
     """
     ********************************************************************************************************************
     КРАФТЫ

@@ -5,7 +5,7 @@ from data.system_dir.standard_item import Item
 
 class MagicWand(Item):
     def __init__(self,
-                 filename="data/textures_dir/weapons/magic_wand.png",
+                 filename="data/textures_dir/weapons/magic_wandV2.png",
                  item_id=2,
                  item_type="weapon",
                  stack=1,

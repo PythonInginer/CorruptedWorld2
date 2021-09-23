@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="изменение шрифта&#10;изменение механики отрисовки количества предметов&#10;начало создание механики брошенного предмета">
+    <list default="true" id="93de6224-5d55-4b42-9d6b-c9c3bfea9496" name="Default Changelist" comment="Переработа архетектура&#10;--action_detector.py&#10;--player в тестовый вариант --playerV2.py&#10;Механика дропа предметов&#10;**багфикс**">
+      <change afterPath="$PROJECT_DIR$/data/textures_dir/interface/chousen_cell.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/textures_dir/interface/hotbar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/textures_dir/interface/standart_cell.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/textures_dir/items/dirt_item3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/textures_dir/weapons/magic_wandV2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/player_dir/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/items_dir/dirt.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/items_dir/dirt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/player_dir/playerV2.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player_dir/playerV2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_dir/CONST.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/CONST.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_dir/action_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/action_detector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_dir/minimap.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/minimap.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_dir/standard_item.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_dir/standard_item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/textures_dir/interface/inventory.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/textures_dir/interface/inventory.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/textures_dir/weapons/magic_wand.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/weapons_dir/magic_wand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/world_dir/load_map_optimiz.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/world_dir/load_map_optimiz.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +32,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1ru0wV8ASWhpMwC77ozgyfBihMp" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -43,14 +59,14 @@
       <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\player_dir" />
-      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures_dir\weapons" />
-      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\system_dir" />
-      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\items_dir" />
       <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures_dir\interface" />
+      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures_dir\items" />
+      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\textures_dir\weapons" />
+      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\player_dir" />
+      <recent name="C:\Users\User\PycharmProjects\corupted_world_2\data\system_dir" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Game_main (1)">
+  <component name="RunManager" selected="Python.Game_main">
     <configuration name="CONST" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="corupted_world_2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -114,7 +130,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="input_box" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Generate_world" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="corupted_world_2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -122,11 +138,32 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data/system_dir" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/system_dir/input_box.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Generate_world.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="playerV2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="corupted_world_2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data/player_dir" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/player_dir/playerV2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -156,34 +193,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="corupted_world_2" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.playerV2" />
+        <item itemvalue="Python.Generate_world" />
         <item itemvalue="Python.Game_main (1)" />
         <item itemvalue="Python.smal_tests" />
         <item itemvalue="Python.CONST" />
-        <item itemvalue="Python.input_box" />
-        <item itemvalue="Python.tests" />
       </list>
     </recent_temporary>
   </component>
@@ -280,7 +296,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631731784724</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Переработа архетектура&#10;--action_detector.py&#10;--player в тестовый вариант --playerV2.py&#10;Механика дропа предметов&#10;**багфикс**">
+      <created>1632162249374</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1632162249374</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -320,7 +343,8 @@
     <MESSAGE value="Переработка кода завершена." />
     <MESSAGE value="Отказ от библиотеки pygame_gui&#10;Создан класс InputBox&#10;Переработано окно чата&#10;&#10;***багфикс**" />
     <MESSAGE value="изменение шрифта&#10;изменение механики отрисовки количества предметов" />
-    <option name="LAST_COMMIT_MESSAGE" value="изменение шрифта&#10;изменение механики отрисовки количества предметов" />
+    <MESSAGE value="Переработа архетектура&#10;--action_detector.py&#10;--player в тестовый вариант --playerV2.py&#10;Механика дропа предметов&#10;**багфикс**" />
+    <option name="LAST_COMMIT_MESSAGE" value="Переработа архетектура&#10;--action_detector.py&#10;--player в тестовый вариант --playerV2.py&#10;Механика дропа предметов&#10;**багфикс**" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

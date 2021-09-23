@@ -29,10 +29,10 @@ def load_level(filename):  # читаем уровень из файла
 
 def generate_level():  # выставляем тайлы на холст
     level_map, X, Y = load_level(lvl_name)
-    world_map_conv = pygame.Surface((75 * X, 75 * Y))
+    world_map_conv = pygame.Surface((TILE_WH * X, TILE_WH * Y))
     for y in range(len(level_map)):
         for x in range(len(level_map[y])):
-            TILE_SPRITES.add(Tile(75 * x, 75 * y, load_image(tile_images[level_map[y][x]][0])))
+            TILE_SPRITES.add(Tile(TILE_WH * x, TILE_WH * y, load_image(tile_images[level_map[y][x]][0])))
     TILE_SPRITES.draw(world_map_conv)
     return world_map_conv
 

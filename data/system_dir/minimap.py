@@ -1,4 +1,4 @@
-from data.system_dir.CONST import MAP_WH
+from data.system_dir.CONST import MAP_WH, TILE_WH
 import pygame
 
 
@@ -29,5 +29,5 @@ class Minimap:
         pygame.draw.rect(self.map_canvas, (255, 0, 0), (ppx - 2, ppy - 2, 5, 5))
 
     def show_coordinates(self):
-        text = self.coordinates_style.render(f"X:{self.x_pos // 75} Y:{self.y_pos // 75}", False, (0, 180, 0))
+        text = self.coordinates_style.render(f"X:{self.x_pos // TILE_WH} Y:{self.y_pos // TILE_WH}", False, (0, 180, 0))
         return text

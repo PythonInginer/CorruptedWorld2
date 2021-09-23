@@ -16,11 +16,13 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((25, 25))
         self.image.fill((255, 255, 255))
         self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = (WIDTH / 2 - 12, HEIGHT / 2 - 12)
+        self.rect.x, self.rect.y = (WIDTH / 2 - self.image.get_width() // 2, HEIGHT / 2 - self.image.get_height() // 2)
         self.move_x = 0
         self.move_y = 0
 
         """Общие параметры"""
+        self.cell_image = pygame.image.load('data/textures_dir/interface/standart_cell.png')
+        self.chosen_cell_image = pygame.image.load('data/textures_dir/interface/chousen_cell.png')
         self.inventory_canvas = pygame.Surface((WIDTH, HEIGHT))
         self.general_shiftX = WIDTH - 20
 
@@ -38,12 +40,14 @@ class Player(pygame.sprite.Sprite):
         self.inv_rect = pygame.Rect(self.invX, self.invY, self.invW, self.invH)
 
         """Хотбар"""
+        self.hotBar_image = pygame.image.load('data/textures_dir/interface/hotbar.png')
+
         self.hotBar_chosen_cell = 0
         self.hotBar_group = pygame.sprite.Group()
 
         """Крафты"""
         self.craftingW = 200
-        self.craftingH = 245
+        self.craftingH = 212
         self.craftingX = self.general_shiftX - self.craftingW
         self.craftingY = self.invY + self.invH
         self.chose_craft = 0
@@ -51,7 +55,9 @@ class Player(pygame.sprite.Sprite):
         self.inv_items_count = {}
         self.items_can_craft = pygame.sprite.Group()
 
-        self.craft_rect = pygame.Rect(self.craftingX + 115, self.craftingY + 85, 75, 75)
+        self.craft_rect = pygame.Rect(self.craftingX - CELL_WH + self.craftingW,
+                                      self.craftingY + 74,
+                                      CELL_WH, CELL_WH)
 
     def player_class(self):
         pass
@@ -148,18 +154,15 @@ class Player(pygame.sprite.Sprite):
 
     def draw_hotBar(self):
         # отрисовываем клетки хотбара
-        for x in range(CELL_X):
-            pygame.draw.rect(self.inventory_canvas,
-                             (255, 255, 255),
-                             (self.invX + CELL_WH * x, self.invY, CELL_WH, CELL_WH), 1)
+        self.inventory_canvas.blit(self.hotBar_image,
+                                   (self.invX, self.invY))
+        # отрисовываем выбраную ячейку
+        self.inventory_canvas.blit(self.chosen_cell_image,
+                                   (self.invX + self.hotBar_chosen_cell * CELL_WH, self.invY))
         # обновляем хотбар
         self.update_hotBar()
         # отрисовываем предметы в хотбаре
         self.hotBar_group.draw(self.inventory_canvas)
-        # отрисовываем выбраную ячейку
-        pygame.draw.rect(self.inventory_canvas,
-                         (0, 0, 255),
-                         (self.invX + self.hotBar_chosen_cell * CELL_WH, self.invY, CELL_WH, CELL_WH), 5)
 
     def update_hotBar(self):
         self.hotBar_group.empty()  # очищаем при открытие инвенторя
@@ -276,7 +279,7 @@ class Player(pygame.sprite.Sprite):
 
                         else:
                             self.taken_item = return_item(items_id[self.can_craft[self.chose_craft]])
-                            self.inv_cells_group.add(self.taken_item)
+                            self.taken_item_group.add(self.taken_item)
                             self.taken_item.mobility = True
                             spent = True
 
@@ -303,7 +306,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 #  бросаем предмет
                 if self.taken_item:
-                    self.taken_item.set_drop_pos(self.move_x, self.move_y)
+                    self.taken_item.set_drop_pos(self.move_x, self.move_y, self.rect.w, self.rect.h)
                     self.taken_item_group.remove(self.taken_item)
                     self.taken_item.mobility = False
                     self.taken_item.drop = True
@@ -370,12 +373,12 @@ class Player(pygame.sprite.Sprite):
                                                               self.craftingW, self.craftingH), 1)  # отладка
 
         # отрисовываем ячейки крафта
-        pygame.draw.rect(self.inventory_canvas, (255, 255, 255), (self.craftingX + 120, self.craftingY + 10,
-                                                                  65, 65), 5)
-        pygame.draw.rect(self.inventory_canvas, (255, 255, 255), (self.craftingX + 115, self.craftingY + 85,
-                                                                  75, 75), 5)
-        pygame.draw.rect(self.inventory_canvas, (255, 255, 255), (self.craftingX + 120, self.craftingY + 170,
-                                                                  65, 65), 5)
+        self.inventory_canvas.blit(self.cell_image,
+                                   (self.craftingX - CELL_WH + self.craftingW, self.craftingY + 10))
+        self.inventory_canvas.blit(self.chosen_cell_image,
+                                   (self.craftingX - CELL_WH + self.craftingW, self.craftingY + 74))
+        self.inventory_canvas.blit(self.cell_image,
+                                   (self.craftingX - CELL_WH + self.craftingW, self.craftingY + 138))
 
         # отрисовываем 3 предмета из списка возможных крафтов
         self.items_can_craft.draw(self.inventory_canvas)
@@ -428,25 +431,25 @@ class Player(pygame.sprite.Sprite):
         else:
             if self.chose_craft == 0:
                 item = return_item(items_id[self.can_craft[self.chose_craft]])
-                item.set_crafting_pos(self.craftingX + 115, self.craftingY + 85, 1)
+                item.set_crafting_pos(self.craftingX - CELL_WH + self.craftingW, self.craftingY + 74, 1)
                 self.items_can_craft.add(item)
                 item = return_item(items_id[self.can_craft[self.chose_craft + 1]])
-                item.set_crafting_pos(self.craftingX + 115, self.craftingY + 165, 2)
+                item.set_crafting_pos(self.craftingX - CELL_WH + self.craftingW, self.craftingY + 138, 2)
                 self.items_can_craft.add(item)
             elif self.chose_craft == len(self.can_craft) - 1:
                 item = return_item(items_id[self.can_craft[self.chose_craft - 1]])
-                item.set_crafting_pos(self.craftingX + 115, self.craftingY + 5, 2)
+                item.set_crafting_pos(self.craftingX - CELL_WH + self.craftingW, self.craftingY + 10, 2)
                 self.items_can_craft.add(item)
                 item = return_item(items_id[self.can_craft[self.chose_craft]])
-                item.set_crafting_pos(self.craftingX + 115, self.craftingY + 85, 1)
+                item.set_crafting_pos(self.craftingX - CELL_WH + self.craftingW, self.craftingY + 74, 1)
                 self.items_can_craft.add(item)
             else:
                 item = return_item(items_id[self.can_craft[self.chose_craft - 1]])
-                item.set_crafting_pos(self.craftingX + 115, self.craftingY + 5, 2)
+                item.set_crafting_pos(self.craftingX - CELL_WH + self.craftingW, self.craftingY + 10, 2)
                 self.items_can_craft.add(item)
                 item = return_item(items_id[self.can_craft[self.chose_craft]])
-                item.set_crafting_pos(self.craftingX + 115, self.craftingY + 85, 1)
+                item.set_crafting_pos(self.craftingX - CELL_WH + self.craftingW, self.craftingY + 74, 1)
                 self.items_can_craft.add(item)
                 item = return_item(items_id[self.can_craft[self.chose_craft + 1]])
-                item.set_crafting_pos(self.craftingX + 115, self.craftingY + 165, 2)
+                item.set_crafting_pos(self.craftingX - CELL_WH + self.craftingW, self.craftingY + 138, 2)
                 self.items_can_craft.add(item)

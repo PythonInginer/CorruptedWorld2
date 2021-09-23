@@ -1,5 +1,5 @@
 import pygame
-from data.system_dir.CONST import STACK, WIDTH, HEIGHT
+from data.system_dir.CONST import STACK, WIDTH, HEIGHT, CELL_WH
 
 
 class Item(pygame.sprite.Sprite):
@@ -8,10 +8,10 @@ class Item(pygame.sprite.Sprite):
 
         """Работа со спрайтом"""
         self.im = pygame.image.load(filename)
-        self.im = pygame.transform.scale(self.im, (50, 50))
-        self.image = pygame.Surface((75, 75))
+        self.im = pygame.transform.scale(self.im, (48, 48))
+        self.image = pygame.Surface((CELL_WH, CELL_WH))
         self.image.set_colorkey((0, 0, 0))
-        self.image.blit(self.im, (12, 12))
+        self.image.blit(self.im, ((CELL_WH - self.im.get_width()) // 2, (CELL_WH - self.im.get_height()) // 2))
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = 0, 0
         self.dropX, self.dropY = 0, 0
@@ -33,16 +33,16 @@ class Item(pygame.sprite.Sprite):
     def count_updater(self):
         self.image.fill((0, 0, 0))
         self.image.set_colorkey((0, 0, 0))
-        self.image.blit(self.im, (12, 12))
+        self.image.blit(self.im, ((CELL_WH - self.im.get_width()) // 2, (CELL_WH - self.im.get_height()) // 2))
         if not self.drop:
             if self.stacking:
                 if self.max_count != 1:
                     text = self.stack_style.render(f"{self.count}", False, (255, 255, 255))
-                    self.image.blit(text, (50, 50))
+                    self.image.blit(text, (CELL_WH - text.get_width() - 2, CELL_WH - text.get_height() - 2))
 
     def set_inventory_pos(self, x, y, shift_x, shift_y):  # функция для установления позиции в инвенторе
-        self.rect.x = x * 75 + shift_x
-        self.rect.y = y * 75 + shift_y
+        self.rect.x = x * CELL_WH + shift_x
+        self.rect.y = y * CELL_WH + shift_y
 
     def set_crafting_pos(self, x, y, cell_type):  # функция для установления позиции для крафта
         if cell_type == 1:
@@ -52,15 +52,15 @@ class Item(pygame.sprite.Sprite):
             self.rect.x = x
             self.rect.y = y
 
-    def set_drop_pos(self, x, y):
-        self.dropX = x - 37
-        self.dropY = y - 37
+    def set_drop_pos(self, x, y, player_w, player_h):
+        self.dropX = x - player_w - (CELL_WH - self.im.get_width()) // 2
+        self.dropY = y - player_h - (CELL_WH - self.im.get_height()) // 2
 
     def moving(self):  # функция, которая позволяет двигать предмет мышью
         if self.mobility:
             x, y = pygame.mouse.get_pos()
-            self.rect.x = x - 32
-            self.rect.y = y - 32
+            self.rect.x = x - CELL_WH // 2
+            self.rect.y = y - CELL_WH // 2
 
     def update(self, playerX, playerY):
         self.rect.x = self.dropX - playerX + WIDTH // 2
